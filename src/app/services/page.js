@@ -15,7 +15,7 @@ export default function ServicesPage() {
           </div>
           <h3 className="text-xl font-semibold mb-2">Wash & Fold</h3>
           <p className="text-gray-600 mb-4">Professional washing and folding service for your everyday laundry needs.</p>
-          <p className="text-primary-600 font-semibold">From $2.50/lb</p>
+          <p className="text-primary-600 font-semibold">From Nu.100/lb</p>
         </div>
 
         {/* Dry Cleaning Service */}
@@ -27,7 +27,7 @@ export default function ServicesPage() {
           </div>
           <h3 className="text-xl font-semibold mb-2">Dry Cleaning</h3>
           <p className="text-gray-600 mb-4">Expert dry cleaning for your delicate and special garments.</p>
-          <p className="text-primary-600 font-semibold">From $5/item</p>
+          <p className="text-primary-600 font-semibold">From Nu.150/item</p>
         </div>
 
         {/* Express Service */}

@@ -1,48 +1,44 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route';
-import { prisma } from '@/lib/db';
 import { NextResponse } from 'next/server';
+import connectDB from '@/lib/mongodb';
+import Feedback from '@/models/Feedback';
 
-export async function GET(req) {
+export async function POST(request) {
   try {
-    const feedbacks = await prisma.feedback.findMany({
-      include: {
-        user: {
-          select: { name: true },
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+    const { userId, message, rating } = await request.json();
+    
+    await connectDB();
+    
+    const feedback = await Feedback.create({
+      userId,
+      message,
+      rating,
+      createdAt: new Date()
     });
 
-    return NextResponse.json(feedbacks, { status: 200 });
+    return NextResponse.json(feedback, { status: 201 });
   } catch (error) {
-    console.error('[FEEDBACK_GET_ERROR]', error);
-    return NextResponse.json({ message: 'Failed to fetch feedback' }, { status: 500 });
+    console.error('Error creating feedback:', error);
+    return NextResponse.json(
+      { error: 'Failed to create feedback' },
+      { status: 500 }
+    );
   }
 }
 
-export async function POST(req) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-  }
-
+export async function GET() {
   try {
-    const { content } = await req.json();
+    await connectDB();
+    
+    const feedbacks = await Feedback.find()
+      .sort({ createdAt: -1 })
+      .populate('userId', 'name email');
 
-    const newFeedback = await prisma.feedback.create({
-      data: {
-        content,
-        userId: session.user.id,
-      },
-    });
-
-    return NextResponse.json({ message: 'Feedback submitted', feedback: newFeedback }, { status: 201 });
+    return NextResponse.json(feedbacks);
   } catch (error) {
-    console.error('[FEEDBACK_POST_ERROR]', error);
-    return NextResponse.json({ message: 'Failed to submit feedback' }, { status: 500 });
+    console.error('Error fetching feedback:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch feedback' },
+      { status: 500 }
+    );
   }
-}
+} 

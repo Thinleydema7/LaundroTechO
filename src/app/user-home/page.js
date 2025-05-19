@@ -20,12 +20,12 @@ export default function HomePage() {
   }, []);
 
   const [timeSlots] = useState([
-    { time: '09:00 AM', state: 'FREE', id: 1, price: 25 },
-    { time: '10:00 AM', state: 'Booked', id: 2, price: 25 },
-    { time: '11:00 AM', state: 'FREE', id: 3, price: 25 },
-    { time: '02:00 PM', state: 'FREE', id: 4, price: 30 },
-    { time: '03:00 PM', state: 'Booked', id: 5, price: 30 },
-    { time: '04:00 PM', state: 'FREE', id: 6, price: 30 },
+    { time: '09:00 AM', state: 'FREE', id: 1, price: 100 },
+    { time: '10:00 AM', state: 'Booked', id: 2, price: 100 },
+    { time: '11:00 AM', state: 'FREE', id: 3, price: 100 },
+    { time: '02:00 PM', state: 'FREE', id: 4, price: 100 },
+    { time: '03:00 PM', state: 'Booked', id: 5, price: 100 },
+    { time: '04:00 PM', state: 'FREE', id: 6, price: 100 },
   ]);
 
   if (!isMounted) return null; // Prevent hydration issues
