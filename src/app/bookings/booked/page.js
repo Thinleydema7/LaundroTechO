@@ -8,9 +8,9 @@ export default function BookedPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Redirect to dashboard after 5 seconds
+    // Redirect to user home page after 5 seconds
     const timer = setTimeout(() => {
-      router.push('/dashboard/user');
+      router.push('/user-home');
     }, 5000);
 
     return () => clearTimeout(timer);
@@ -42,16 +42,16 @@ export default function BookedPage() {
             Your laundry appointment has been successfully booked.
           </p>
           <p className="mt-1 text-sm text-gray-500">
-            You will be redirected to your dashboard in 5 seconds...
+            You will be redirected to the home page in 5 seconds...
           </p>
         </div>
 
-        <div className="mt-5 flex justify-center space-x-4">
+        <div className="flex flex-col space-y-4">
           <Link
-            href="/dashboard/user"
+            href="/user-home"
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
           >
-            Go to Dashboard
+            Go to Home
           </Link>
           <Link
             href="/bookings/booknow"

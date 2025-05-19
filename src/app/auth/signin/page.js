@@ -45,7 +45,7 @@ function SignInContent() {
           router.push('/dashboard/employee');
           break;
         default:
-          router.push('/dashboard/user');
+          router.push('/user-home');
       }
     } catch (err) {
       setError('An error occurred. Please try again.');

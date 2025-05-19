@@ -120,7 +120,7 @@ export default function AdminBookingsPage() {
                     {booking.serviceType}
                   </div>
                   <div className="text-sm text-gray-500">
-                    ${booking.price}
+                    Nu.{booking.price}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">

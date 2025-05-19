@@ -42,11 +42,15 @@ export default function AdminDashboardPage() {
       const messagesRes = await fetch('/api/contact');
       const messages = await messagesRes.json();
 
+      // Fetch users
+      const usersRes = await fetch('/api/users');
+      const users = await usersRes.json();
+
       // Calculate stats
       setStats({
         totalBookings: bookings.length,
         pendingBookings: bookings.filter(b => b.status === 'PENDING').length,
-        totalUsers: 0, // This would need a separate API endpoint
+        totalUsers: users.length,
         unreadMessages: messages.filter(m => m.status === 'UNREAD').length
       });
 
@@ -61,6 +65,13 @@ export default function AdminDashboardPage() {
       setLoading(false);
     }
   };
+
+  // Add polling for real-time updates
+  useEffect(() => {
+    const pollInterval = setInterval(fetchDashboardData, 30000); // Poll every 30 seconds
+
+    return () => clearInterval(pollInterval);
+  }, []);
 
   if (loading) {
     return (

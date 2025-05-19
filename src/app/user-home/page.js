@@ -4,8 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 export default function HomePage() {
+  const router = useRouter();
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const { scrollY } = useScroll();
   const [isMounted, setIsMounted] = useState(false);
@@ -166,7 +168,10 @@ export default function HomePage() {
                   </p>
                 </div>
                 {slot.state === 'FREE' ? (
-                  <button className="w-full bg-primary-600 text-white px-6 py-2 rounded-md hover:bg-primary-700 transition-colors duration-300 flex items-center justify-center space-x-2">
+                  <button 
+                    onClick={() => router.push('/bookings/booknow')}
+                    className="w-full bg-primary-600 text-white px-6 py-2 rounded-md hover:bg-primary-700 transition-colors duration-300 flex items-center justify-center space-x-2"
+                  >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
@@ -195,7 +200,7 @@ export default function HomePage() {
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 <span className="text-sm text-gray-600">{timeSlots.filter(slot => slot.state === 'FREE').length} slots available</span>
               </div>
-              <Link href="/bookings" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
+              <Link href="/bookings/booknow" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
                 View Full Schedule →
               </Link>
             </div>
@@ -224,11 +229,25 @@ export default function HomePage() {
                 className="flex flex-col items-center"
               >
                 <div className="mb-4">
-                  <svg className="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+                  {[
+                    // Calendar icon
+                    <svg key="calendar" className="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" strokeWidth="2"/><path d="M16 2v4M8 2v4M3 10h18" strokeWidth="2"/></svg>,
+                    // Lightning icon
+                    <svg key="lightning" className="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+                    // Bell icon
+                    <svg key="bell" className="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 7.165 6 9.388 6 12v2.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+                    // Chat bubble icon
+                    <svg key="chat" className="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  ][index]}
                 </div>
-                <p className="text-primary-800">Schedule your time.<br />Do it online or WhatsApp Us</p>
+                <p className="text-primary-800">
+                  {[
+                    'Book your laundry slot online easily.',
+                    'Fast and convenient scheduling.',
+                    'Get reminders for your bookings.',
+                    'Contact us for special requests.'
+                  ][index]}
+                </p>
               </motion.div>
             ))}
           </div>

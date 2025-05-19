@@ -51,12 +51,6 @@ export default function AdminUsersPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-pink-600">Users</h1>
-        <button
-          onClick={() => {/* Add user creation logic */}}
-          className="bg-pink-600 text-white px-4 py-2 rounded-md hover:bg-pink-700 transition-colors"
-        >
-          Add User
-        </button>
       </div>
 
       {error && (
